@@ -33,6 +33,7 @@ cfn-sweeper ---output pretty --region us-east-1
   1236 resources found created by Cloudformation!
   34 resources not managed by Cloudformation!
   2 Cloudformation managed resources not found!
+  4 resources not verifed (not yet supported)!
   
   Unmanaged Resources:
     AWS::IAM::Role
