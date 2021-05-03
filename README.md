@@ -70,8 +70,11 @@ Valid values: any string that is a valid tag - multiple values can be supplied
 ### Supported Cloudformation Types
 
 `AWS::IAM::Role`
+
 `AWS::EC2::Instance`
+
 `AWS::Lambda::Function`
+
 `AWS::S3::Bucket`
 
 ### Using as a Python Module
