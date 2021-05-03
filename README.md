@@ -58,8 +58,21 @@ Valid values: any valid AWS region in kebab case format (eg `us-east-1`)
 
 `--filter-types`
 
+Allows you to exclude particular AWS Resource types based on the Cloudformation type (eg `AWS::IAM::Role` or `AWS::EC2::Instance`) 
+Valid values: any Cloudformation resource type that is supported by the tool today (see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html for reference). Multiple values can be supplied
+
 
 `--filter-tag-keys`
+
+Allows you to exclude particular AWS Resources based on the presence of a particular tag key on the resource. This will only be applied to AWS Resources that support tagging.
+Valid values: any string that is a valid tag - multiple values can be supplied
+
+### Supported Cloudformation Types
+
+`AWS::IAM::Role`
+`AWS::EC2::Instance`
+`AWS::Lambda::Function`
+`AWS::S3::Bucket`
 
 ### Using as a Python Module
 
