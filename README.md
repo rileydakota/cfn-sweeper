@@ -44,3 +44,29 @@ cfn-sweeper ---output pretty --region us-east-1
    ...
    ...
 ```
+### Available arguments
+
+`--output`
+
+Controls the output format of the results. Printed to stdout.
+Valid values: `pretty`, `json`, `yaml`
+
+`--region`
+
+The AWS Region from which we will run `describe-stacks` and look for the various resources in
+Valid values: any valid AWS region in kebab case format (eg `us-east-1`)
+
+`--filter-types`
+
+
+`--filter-tag-keys`
+
+### Using as a Python Module
+
+```python
+import cfn_sweeper
+
+cfn_managed_resources = cfn_sweeper.get_managed_resources()
+unmanaged_resources = cfn_sweeper.get_unmanaged_resources(cfn_managed_resources)
+
+```
