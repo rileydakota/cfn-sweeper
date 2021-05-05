@@ -10,7 +10,7 @@ setup(
     py_modules=["main"],
     entry_points={
         'console_scripts': [
-            'cfn-sweeper= main:main',
+            'cfn_sweeper=cfn_sweeper.main:main',
         ],
     },
     description=DESCRIPTION,
