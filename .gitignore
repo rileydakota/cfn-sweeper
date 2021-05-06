@@ -71,6 +71,9 @@ instance/
 # Sphinx documentation
 docs/_build/
 
+# VSCode
+.vscode/
+
 # PyBuilder
 target/
 

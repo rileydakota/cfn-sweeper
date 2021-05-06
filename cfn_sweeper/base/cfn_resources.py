@@ -8,7 +8,7 @@ cfn_config = Config(
     }
 )
 
-def load_cfn_resources(region):
+def load_cfn_resources(region:str) -> list:
    """
     Gets all the Cloudformation managed resources for the given AWS region
 
@@ -19,7 +19,7 @@ def load_cfn_resources(region):
         An array of dict - containing the information of Cloudformation resources
 
    """
-   cloudformation_client = boto3.client(region=region, config=cfn_config)
+   cloudformation_client = boto3.client(service_name='cloudformation', region_name=region, config=cfn_config)
    stacks_in_account = []
    stack_paginator = cloudformation_client.get_paginator('list_stacks')
 
@@ -35,7 +35,7 @@ def load_cfn_resources(region):
                result.append(resource)
    return result
 
-def get_all_cfn_resources_by_type(resource_array:list, resource_type:str):
+def get_all_cfn_resources_by_type(resource_array:list, resource_type:str) -> list:
     """
     Given a list of cloudformation stack resources, filters the resources by the specified type
 
@@ -53,5 +53,21 @@ def get_all_cfn_resources_by_type(resource_array:list, resource_type:str):
             result.append(resource)
     return result
 
-   
- 
+def is_managed_by_cloudformation(physical_resource_id:list, resource_array:list) -> bool:
+    """
+    Given a physical resource id and array of rources - returns if the resource is managed by cloudformation
+
+    Parameters:
+        physical_resource_id (string): The identifier of the resource - eg igw-09a7b4932e331edb2 or vpc-054a63a50efe678b3
+        resource_array (list): an array of cloudformation stack resources
+
+    Returns:
+        boolean - if the resource is found in the list of resource_array
+    """
+    
+    #return any(physical_resource_id in 'PhysicalResourceId' in d for d in resource_array)
+    for resource in resource_array:
+        if resource['PhysicalResourceId'] == physical_resource_id:
+            return True
+    else:
+        return False    

@@ -8,6 +8,9 @@ boto3 = "*"
 
 [dev-packages]
 pytest = "*"
+pylint = "*"
+pytest-mock = "*"
+moto = {extras = ["all"], version = "*"}
 
 [requires]
 python_version = "3.8"
