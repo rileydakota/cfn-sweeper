@@ -2,40 +2,46 @@ import boto3
 from botocore.config import Config
 
 cfn_config = Config(
-    retries = {
+    retries={
         'max_attempts': 10,
         'mode': 'adaptive'
     }
 )
 
-def load_cfn_resources(region:str) -> list:
-   """
-    Gets all the Cloudformation managed resources for the given AWS region
 
-    Parameters:
-        region (string): the AWS Region to scan
+def load_cfn_resources(region: str) -> list:
+    """
+     Gets all the Cloudformation managed resources for the given AWS region
 
-    Returns:
-        An array of dict - containing the information of Cloudformation resources
+     Parameters:
+         region (string): the AWS Region to scan
 
-   """
-   cloudformation_client = boto3.client(service_name='cloudformation', region_name=region, config=cfn_config)
-   stacks_in_account = []
-   stack_paginator = cloudformation_client.get_paginator('list_stacks')
+     Returns:
+         An array of dict - containing the information of Cloudformation resources
 
-   stack_page_iterator = stack_paginator.paginate(StackStatusFilter=['CREATE_COMPLETE', 'UPDATE_COMPLETE'])
-   for page in stack_page_iterator:
-       stacks_in_account.extend(page['StackSummaries'])
-   resource_paginator = cloudformation_client.get_paginator('list_stack_resources')
-   result = []
-   for stack in stacks_in_account:
-       resource_page_iterator = resource_paginator.paginate(StackName=stack['StackName'])
-       for page in resource_page_iterator:
-           for resource in page['StackResourceSummaries']:
-               result.append(resource)
-   return result
+    """
+    cloudformation_client = boto3.client(
+        service_name='cloudformation', region_name=region, config=cfn_config)
+    stacks_in_account = []
+    stack_paginator = cloudformation_client.get_paginator('list_stacks')
 
-def get_all_cfn_resources_by_type(resource_array:list, resource_type:str) -> list:
+    stack_page_iterator = stack_paginator.paginate(
+        StackStatusFilter=['CREATE_COMPLETE', 'UPDATE_COMPLETE'])
+    for page in stack_page_iterator:
+        stacks_in_account.extend(page['StackSummaries'])
+    resource_paginator = cloudformation_client.get_paginator(
+        'list_stack_resources')
+    result = []
+    for stack in stacks_in_account:
+        resource_page_iterator = resource_paginator.paginate(
+            StackName=stack['StackName'])
+        for page in resource_page_iterator:
+            for resource in page['StackResourceSummaries']:
+                result.append(resource)
+    return result
+
+
+def get_all_cfn_resources_by_type(resource_array: list, resource_type: str) -> list:
     """
     Given a list of cloudformation stack resources, filters the resources by the specified type
 
@@ -53,7 +59,8 @@ def get_all_cfn_resources_by_type(resource_array:list, resource_type:str) -> lis
             result.append(resource)
     return result
 
-def is_managed_by_cloudformation(physical_resource_id:list, resource_array:list) -> bool:
+
+def is_managed_by_cloudformation(physical_resource_id: list, resource_array: list) -> bool:
     """
     Given a physical resource id and array of rources - returns if the resource is managed by cloudformation
 
@@ -64,10 +71,9 @@ def is_managed_by_cloudformation(physical_resource_id:list, resource_array:list)
     Returns:
         boolean - if the resource is found in the list of resource_array
     """
-    
-    #return any(physical_resource_id in 'PhysicalResourceId' in d for d in resource_array)
+
     for resource in resource_array:
         if resource['PhysicalResourceId'] == physical_resource_id:
             return True
     else:
-        return False    
+        return False

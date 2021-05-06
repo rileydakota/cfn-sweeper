@@ -11,6 +11,7 @@ pytest = "*"
 pylint = "*"
 pytest-mock = "*"
 moto = {extras = ["all"], version = "*"}
+autopep8 = "*"
 
 [requires]
 python_version = "3.8"
