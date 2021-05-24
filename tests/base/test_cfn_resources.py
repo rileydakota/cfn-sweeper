@@ -82,6 +82,10 @@ def test_get_all_cfn_resources_by_type():
     assert result[0]['ResourceType'] == 'AWS::Lambda::Function'
     assert result[1]['ResourceType'] == 'AWS::Lambda::Function'
 
+    result = get_all_cfn_resources_by_type(resource_array, 'AWS::EC2::VPC')
+
+    assert len(result) == 0
+
 def test_is_managed_by_cloudformation():
     resource_array = [{
         "PhysicalResourceId":"vpc-1234"
