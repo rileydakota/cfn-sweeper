@@ -11,6 +11,5 @@ def gather(self, region):
     result = []
     ec2 = boto3.resource('ec2',region_name=region)
     for instance in ec2.instances.all():
-        ec2s = {"Id:":  instance.id}
-        result.append(ec2s['Id'])
+        result.append(instance.id)
     return result
