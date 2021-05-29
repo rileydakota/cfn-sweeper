@@ -2,7 +2,7 @@ from importlib import import_module
 import os
 
 def get_aws_modules(files:list) -> list:
-    return filter(lambda x: x.startswith('AWS'), files)
+    return list(filter(lambda x: x.startswith('AWS'), files))
 
 def get_module_dir() -> str:
     root_dir = os.path.dirname(os.path.abspath(__file__))
@@ -21,8 +21,17 @@ class PluginManager:
             try:
                 loaded_module = import_module(module_path)
                 resource = loaded_module.resource()
+                print(resource)
                 self.modules[resource.resource_name] = resource.gather
 
             except ModuleNotFoundError as e:
                 print(e)
                 print('unable to load {}'.format(module))
+
+    def gather_resource(self, region:str, resource_name:str):
+        try:
+            result = self.modules[resource_name](region=region)
+            return result
+        except KeyError as e:
+            print(e)
+            raise NotImplementedError
