@@ -30,7 +30,7 @@ def test_get_module_dir(mocker):
 
 def test_PluginManager(mocker):
     mocker.patch(
-        'cfn_sweeper.base.runner.os.listdir',
+        'cfn_sweeper.base.runner.get_package_modules',
         return_value=[
             'AWS_EC2_Instance.py',
             'AWS_S3_Bucket.py',

@@ -1,4 +1,5 @@
-from importlib import import_module 
+from importlib import import_module
+from pkgutil import walk_packages
 import os
 
 def get_aws_modules(files:list) -> list:
@@ -24,6 +25,13 @@ def get_module_dir() -> str:
     root_dir_len = len(root_dir)
     return root_dir[:root_dir_len - 4] + 'resources'
 
+def get_package_modules(package_path:str) -> list:
+    result = []
+    for package in walk_packages([package_path]):
+        result.append(package.name)
+
+    return result
+
 
 class PluginManager:
     '''
@@ -40,7 +48,7 @@ class PluginManager:
     
     def __init__(self):
         self.modules = {}
-        module_dir_files = os.listdir(get_module_dir())
+        module_dir_files = get_package_modules(get_module_dir())
         aws_modules = get_aws_modules(module_dir_files)
         for module in aws_modules:
             
@@ -48,7 +56,6 @@ class PluginManager:
             try:
                 loaded_module = import_module(module_path)
                 resource = loaded_module.resource()
-                print(resource)
                 self.modules[resource.resource_name] = resource.gather
 
             except ModuleNotFoundError as e:

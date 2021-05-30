@@ -22,3 +22,14 @@ def test_s3_resource():
     assert len(scan_result) == 2
     assert 'bucket1' in scan_result
     assert 'bucket2' in scan_result
+
+    client.delete_bucket(Bucket='bucket1')
+    client.delete_bucket(Bucket='bucket2')
+    
+    # test pagination
+    for num in range(500):
+        client.create_bucket(Bucket='bucket{}'.format(
+            num
+        ))
+    scan_result = s3_scanner_resource.gather(region='us-east-1')
+    assert len(scan_result) == 500
