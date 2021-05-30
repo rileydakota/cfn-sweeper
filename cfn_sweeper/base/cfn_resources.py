@@ -60,7 +60,7 @@ def get_all_cfn_resources_by_type(resource_array: list, resource_type: str) -> l
     return result
 
 
-def is_managed_by_cloudformation(physical_resource_id: list, resource_array: list) -> bool:
+def is_managed_by_cloudformation(physical_resource_id: str, resource_array: list) -> bool:
     """
     Given a physical resource id and array of rources - returns if the resource is managed by cloudformation
 
