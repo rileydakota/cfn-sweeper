@@ -11,7 +11,6 @@ def test_dynamo_db():
     
     
     scan_result = dynamo_scanner_resource.gather('us-east-1')
-    print(scan_result)
     assert len(scan_result) == 0    
     
     """
@@ -44,7 +43,6 @@ def test_dynamo_db():
     """
     Test if our mock table is ready and we can return it
     """
-    print(dynamo)
     
     assert dynamo_scanner_resource.resource_name == 'AWS::DynamoDB::Table'
     
