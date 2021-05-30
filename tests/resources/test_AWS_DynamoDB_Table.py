@@ -51,8 +51,7 @@ def test_dynamo_db():
     
     scan_result = dynamo_scanner_resource.gather(region='us-east-1')
 
-    #print(dynamodb.list_tables())
-    #print(scan_result)
+
     assert len(scan_result) == dbcnt
 
 
