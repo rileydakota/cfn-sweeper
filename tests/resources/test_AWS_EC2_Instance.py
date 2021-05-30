@@ -22,7 +22,7 @@ def test_ec2_resource():
     assert ec2_scanner_resource.resource_name == 'AWS::EC2::Instance'
     
     scan_result = ec2_scanner_resource.gather(region='us-east-1')
-    print(scan_result)
+    #print(scan_result)
     assert len(scan_result) == 1
 
     
