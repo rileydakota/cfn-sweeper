@@ -59,7 +59,7 @@ def test_iam():
     scan_result = iam_scanner_resource.gather(region='us-east-1')
 
     assert len(scan_result) == rolecnt
-    
+    if 'RoleName' in scan_result: assert True
 
 
 
