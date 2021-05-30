@@ -2,6 +2,7 @@ import argparse
 from pprint import pprint
 from cfn_sweeper.base.cfn_resources import load_cfn_resources, get_all_cfn_resources_by_type, is_managed_by_cloudformation
 from cfn_sweeper.base.runner import PluginManager
+from cfn_sweeper.base.output import ScanReport
 
 def main():
     parser = argparse.ArgumentParser()
@@ -10,8 +11,9 @@ def main():
                         dest="region",
                         required=True)
     parser.add_argument('--output',
-                        help='pretty, json, yaml',
-                        dest="output")
+                        help='pretty, json, yaml, stdout',
+                        dest="output",
+                        default='yaml')
     parser.add_argument('--filter-types',
                         help='eg: AWS::IAM::Role or AWS::EC2::Instance.',
                         nargs='+',
@@ -27,16 +29,13 @@ def main():
     #TODO: inital shot at this - refactor later
     region = args.region
     types = args.types
+    output = args.output
     cfn_resources = load_cfn_resources(region)
     runner = PluginManager()
     
     #TODO: abstract result into its own class - so we can easily output to different formats
-    result = {}
+    report = ScanReport() 
     for resource_type in types:
-        result[resource_type] = {
-            'managed':[],
-            'unmanaged':[]
-        }
         resources_in_cloudformation = get_all_cfn_resources_by_type(cfn_resources, resource_type)
         try:
             resources_in_account = runner.gather_resource(region=region, resource_name=resource_type)
@@ -44,13 +43,25 @@ def main():
             print('Sorry - {} isn''t supported just yet!'.format(
                 resource_type
             ))
+
+        managed_resources = []
+        unmanaged_resources = []
         for resource in resources_in_account:
             cfn_managed = is_managed_by_cloudformation(physical_resource_id=resource, resource_array=resources_in_cloudformation)
             if cfn_managed:
-                result[resource_type]['managed'].append(resource)
+              managed_resources.append(resource)
             else:
-                result[resource_type]['unmanaged'].append(resource)
-    print(result)
+              unmanaged_resources.append(resource)
+        report.add_resource_results(resource_type=resource_type, managed_resources=managed_resources, unmanaged_resources=unmanaged_resources)
+    
+    
+    if output == 'yaml':
+      report.print_to_yaml()
+    elif output == 'json':
+      report.print_to_json()
+    elif output == 'stdout':
+      report.print_to_stdout()
+    
 
 
 
