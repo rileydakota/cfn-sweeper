@@ -1,4 +1,4 @@
-from cfn_sweeper.base.runner import PluginManager, get_aws_modules, get_module_dir
+from cfn_sweeper.base.runner import PluginManager, get_aws_modules, get_module_dir, get_package_modules
 import uuid
 import pytest
 
@@ -27,6 +27,20 @@ def test_get_module_dir(mocker):
     
     plugin_dir = get_module_dir()
     assert plugin_dir == '/home/randomuser/cfn-sweeper/cfn-sweeper/resources'
+
+def test_get_package_modules(mocker):
+    mocker.patch(
+        'cfn_sweeper.base.runner.walk_packages',
+        return_value=[
+            FakePkgUtilModuleClass(name='module1'),
+            FakePkgUtilModuleClass(name='module2')    
+        ]
+    )
+
+    result = get_package_modules('module_path')
+    assert len(result) == 2
+    assert 'module1' in result
+    assert 'module2' in result
 
 def test_PluginManager(mocker):
     mocker.patch(
@@ -76,3 +90,7 @@ class FakeResourceClass():
             'aws-thing-1',
             'aws-thing-2'
         ]
+
+class FakePkgUtilModuleClass():
+    def __init__(self, name):
+        self.name = name
