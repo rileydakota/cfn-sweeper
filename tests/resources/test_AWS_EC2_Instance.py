@@ -18,7 +18,6 @@ def test_ec2_resource():
     InstanceType='t2.micro',
 )
 
-    print(ec2)
     
     assert ec2_scanner_resource.resource_name == 'AWS::EC2::Instance'
     
