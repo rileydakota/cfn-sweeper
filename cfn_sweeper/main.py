@@ -43,6 +43,7 @@ def main():
             print('Sorry - {} isn''t supported just yet!'.format(
                 resource_type
             ))
+            continue
 
         managed_resources = []
         unmanaged_resources = []

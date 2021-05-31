@@ -1,6 +1,5 @@
 import json
 import yaml
-import pprint
 
 class ScanReport():
     def __init__(self):
