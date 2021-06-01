@@ -6,8 +6,9 @@ from cfn_sweeper.validation import ValidateRegion,Validateoutput,Validatefilter
 from cfn_sweeper.artwork import Artwork #This is the Artwork, don't know if there is a better way????
     
 
-Artwork.art()
+
 def main():
+    Artwork.art()
     parser = argparse.ArgumentParser()
     parser.add_argument('--region',
                         help='Enter a region like us-east-2.',
