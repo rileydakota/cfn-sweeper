@@ -3,21 +3,30 @@ from pprint import pprint
 from cfn_sweeper.base.cfn_resources import load_cfn_resources, get_all_cfn_resources_by_type, is_managed_by_cloudformation
 from cfn_sweeper.base.runner import PluginManager
 from cfn_sweeper.base.output import ScanReport
+from cfn_sweeper.validation import ValidateRegion,Validateoutput,Validatefilter
+from cfn_sweeper.artwork import Artwork
+    
 
 def main():
+    Artwork.art()
     parser = argparse.ArgumentParser()
     parser.add_argument('--region',
                         help='Enter a region like us-east-2.',
                         dest="region",
+                        action=ValidateRegion,
                         required=True)
     parser.add_argument('--output',
-                        help='pretty, json, yaml, stdout',
+                        help='pretty, json, yaml',
                         dest="output",
-                        default='yaml')
+                        action=Validateoutput,
+                        nargs="?",
+                        yaml="default"
+                        )
     parser.add_argument('--filter-types',
                         help='eg: AWS::IAM::Role or AWS::EC2::Instance.',
                         nargs='+',
                         dest="types",
+                        action=Validatefilter,
                         required=True)
     parser.add_argument('--tag_keys',
                         help='Allows you to exclude particular AWS Resources based on the presence of a particular tag key on the resource. This will only be applied to AWS Resources that support tagging. Valid values: any string that is a valid tag - multiple values can be supplied.',
