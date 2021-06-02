@@ -20,7 +20,7 @@ def main():
                         dest="output",
                         action=Validateoutput,
                         nargs="?",
-                        yaml="default"
+                        const="yaml"
                         )
     parser.add_argument('--filter-types',
                         help='eg: AWS::IAM::Role or AWS::EC2::Instance.',
