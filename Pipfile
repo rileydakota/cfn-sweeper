@@ -7,6 +7,8 @@ name = "pypi"
 boto3 = "*"
 requests = "*"
 pyfiglet = "*"
+pyyaml = "*"
+
 
 [dev-packages]
 pytest = "*"
@@ -16,6 +18,8 @@ moto = {extras = ["all"], version = "*"}
 autopep8 = "*"
 flake8 = "*"
 pyfiglet = "*"
+pytest-watch = "*"
+
 
 [requires]
 python_version = "3.8"
