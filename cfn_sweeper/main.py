@@ -22,7 +22,7 @@ def main():
                         default="yaml"
                         )
     parser.add_argument('--filter-types',
-                        help='eg: AWS::IAM::Role or AWS::EC2::Instance. Using  "ALL"  with no quotes and we will run it for all current supported resource types',
+                        help='eg: AWS::IAM::Role or AWS::EC2::Instance.',
                         nargs='+',
                         dest="types",
                         action=Validatefilter,
