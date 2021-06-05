@@ -15,7 +15,7 @@ class ValidateRegion(argparse.Action):
 class Validateoutput(argparse.Action):
     """Validate Output"""        
     def __call__(self, parser, namespace, values, option_string=None):
-        output = ['pretty', 'json', 'yaml']
+        output = ['pretty', 'json', 'yaml','stdout']
         if not values in output:
             sys.exit("--output parameter currently only supports: " + str(output))
         else:

@@ -1,14 +1,13 @@
 import argparse
-from pprint import pprint
 from cfn_sweeper.base.cfn_resources import load_cfn_resources, get_all_cfn_resources_by_type, is_managed_by_cloudformation
 from cfn_sweeper.base.runner import PluginManager
 from cfn_sweeper.base.output import ScanReport
 from cfn_sweeper.validation import ValidateRegion,Validateoutput,Validatefilter
-from cfn_sweeper.artwork import Artwork
+
     
 
 def main():
-    Artwork.art()
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--region',
                         help='Enter a region like us-east-2.',
@@ -20,10 +19,10 @@ def main():
                         dest="output",
                         action=Validateoutput,
                         nargs="?",
-                        yaml="default"
+                        default="yaml"
                         )
     parser.add_argument('--filter-types',
-                        help='eg: AWS::IAM::Role or AWS::EC2::Instance.',
+                        help='eg: AWS::IAM::Role or AWS::EC2::Instance. Using  "ALL"  with no quotes and we will run it for all current supported resource types',
                         nargs='+',
                         dest="types",
                         action=Validatefilter,
@@ -71,6 +70,8 @@ def main():
       report.print_to_json()
     elif output == 'stdout':
       report.print_to_stdout()
+    elif output == 'pretty':
+      report.print_to_pretty()
     
 
 
