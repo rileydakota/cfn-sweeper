@@ -15,7 +15,7 @@ def main():
                         action=ValidateRegion,
                         required=True)
     parser.add_argument('--output',
-                        help='pretty, json, yaml',
+                        help='pretty, json, yaml, stdout',
                         dest="output",
                         action=Validateoutput,
                         nargs="?",
