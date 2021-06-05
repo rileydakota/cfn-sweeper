@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 boto3 = "*"
+requests = "*"
+pyfiglet = "*"
 
 [dev-packages]
 pytest = "*"
@@ -13,6 +15,7 @@ pytest-mock = "*"
 moto = {extras = ["all"], version = "*"}
 autopep8 = "*"
 flake8 = "*"
+pyfiglet = "*"
 
 [requires]
 python_version = "3.8"
