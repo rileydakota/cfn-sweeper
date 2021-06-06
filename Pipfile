@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 boto3 = "*"
 pyyaml = "*"
-pyfiglet = "*"
 
 [dev-packages]
 pytest = "*"
