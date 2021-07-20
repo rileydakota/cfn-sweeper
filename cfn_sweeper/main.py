@@ -1,5 +1,5 @@
 import argparse
-from cfn_sweeper.base.cfn_resources import load_cfn_resources, get_all_cfn_resources_by_type, is_managed_by_cloudformation
+from cfn_sweeper.base.cfn_resources import load_cfn_resources, get_all_cfn_resources_by_type, is_managed_by_cloudformation,get_stacks
 from cfn_sweeper.base.runner import PluginManager
 from cfn_sweeper.base.output import ScanReport
 from cfn_sweeper.validation import ValidateRegion,Validateoutput,Validatefilter
@@ -44,6 +44,7 @@ def main():
     #TODO: abstract result into its own class - so we can easily output to different formats
     report = ScanReport() 
     for resource_type in types:
+        stacks = get_stacks(cfn_resources)
         resources_in_cloudformation = get_all_cfn_resources_by_type(cfn_resources, resource_type)
         try:
             resources_in_account = runner.gather_resource(region=region, resource_name=resource_type)
@@ -52,16 +53,17 @@ def main():
                 resource_type
             ))
             continue
-
         managed_resources = []
         unmanaged_resources = []
         for resource in resources_in_account:
+            #print(resource)
             cfn_managed = is_managed_by_cloudformation(physical_resource_id=resource, resource_array=resources_in_cloudformation)
             if cfn_managed:
               managed_resources.append(resource)
             else:
               unmanaged_resources.append(resource)
-        report.add_resource_results(resource_type=resource_type, managed_resources=managed_resources, unmanaged_resources=unmanaged_resources)
+        report.add_resource_results(resource_type=resource_type,stackname = stacks,managed_resources=managed_resources, unmanaged_resources=unmanaged_resources)
+        
     
     
     if output == 'yaml':
