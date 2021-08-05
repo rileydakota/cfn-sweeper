@@ -1,4 +1,4 @@
-name: Python package
+name: SCA [Snyk]
 
 on: [pull_request]
 
