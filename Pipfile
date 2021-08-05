@@ -16,6 +16,7 @@ moto = {extras = ["all"], version = "*"}
 autopep8 = "*"
 flake8 = "*"
 pytest-watch = "*"
+bandit = "*"
 
 [requires]
 python_version = "3.8"
