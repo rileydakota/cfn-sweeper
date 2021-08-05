@@ -22,4 +22,4 @@ jobs:
           pipenv install --deploy --dev
       - name: SAST - Bandit
         run: |
-          bandit ./cfn_sweeper/* -r
+          pipenv run bandit ./cfn_sweeper/* -r
