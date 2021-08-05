@@ -23,7 +23,7 @@ jobs:
       - name: Install Snyk
         run: npm install -g snyk
       - name: Configure Snyk Auth
-        with:
+        env:
           SNYK_API_KEY: ${{ secrets.SNYK_API_KEY }}
         run: snyk config set api=$SNYK_API_KEY
       - name: SCA - Snyk
