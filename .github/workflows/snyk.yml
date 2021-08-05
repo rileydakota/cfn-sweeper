@@ -1,9 +1,9 @@
-name: SCA [Snyk]
+name: Snyk
 
 on: [pull_request]
 
 jobs:
-  build:
+  Security-SCA:
     runs-on: ubuntu-latest
     strategy:
       matrix:

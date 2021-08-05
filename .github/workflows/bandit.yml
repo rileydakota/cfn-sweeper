@@ -1,9 +1,9 @@
-name: SAST [Bandit]
+name: Bandit
 
 on: [pull_request]
 
 jobs:
-  build:
+  Security-SAST:
     runs-on: ubuntu-latest
     strategy:
       matrix:
