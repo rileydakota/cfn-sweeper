@@ -78,6 +78,8 @@ Valid values: any string that is a valid tag - multiple values can be supplied
 
 `AWS::S3::Bucket`
 
+`AWS::KMS::Key`
+
 ### Using as a Python Module
 
 ```python
