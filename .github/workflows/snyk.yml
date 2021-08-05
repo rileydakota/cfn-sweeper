@@ -20,12 +20,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pipenv
           pipenv install --deploy --dev
-      - name: Install Snyk
-        run: npm install -g snyk
-      - name: Configure Snyk Auth
-        env:
-          SNYK_API_KEY: ${{ secrets.SNYK_API_KEY }}
-        run: snyk config set api=$SNYK_API_KEY
       - name: SCA - Snyk
-        run: |
-          snyk test
+        uses: snyk/actions/python-3.8@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_API_KEY }}
