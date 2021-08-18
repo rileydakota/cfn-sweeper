@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 DESCRIPTION = 'A tool for finding resources unmanaged by cloudformation'
 
 
@@ -17,7 +17,10 @@ setup(
     packages=find_packages(),
     install_requires=[
         'boto3',
-        'wheel'
-    ]
+        'wheel',
+        'pyyaml',
+        'pyfiglet'
+    ],
+    python_requires=">=3.8"
     
 )

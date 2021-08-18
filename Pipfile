@@ -7,6 +7,8 @@ name = "pypi"
 boto3 = "*"
 pyyaml = "*"
 pyfiglet = "*"
+build = "*"
+twine = "*"
 
 [dev-packages]
 pytest = "*"
