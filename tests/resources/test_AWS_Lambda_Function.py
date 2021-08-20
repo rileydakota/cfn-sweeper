@@ -14,7 +14,7 @@ def test_lambda_resoure():
 
     assert len(lambda_scanner_resource.gather('us-east-1')) == 0
 
-    client = boto3.client('lambda')
+    client = boto3.client('lambda', region_name='us-east-1')
     client.create_function(
         FunctionName="testFunction",
         Role=get_role_name(),
