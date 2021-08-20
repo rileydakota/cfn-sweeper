@@ -14,36 +14,20 @@ Or install directly from source:
 ## Usage
 
 ```bash
-cfn-sweeper ---output pretty --region us-east-1
-
- ______  ______ __   __                                      
-/\  ___\/\  ___/\ "-.\ \                                     
-\ \ \___\ \  __\ \ \-.  \                                    
- \ \_____\ \_\  \ \_\\"\_\                                   
- __________/_/  __/_______  ______  ______ ______  ______    
-/\  ___\/\ \  _ \ \/\  ___\/\  ___\/\  == /\  ___\/\  == \   
-\ \___  \ \ \/ ".\ \ \  __\\ \  __\\ \  _-\ \  __\\ \  __<   
- \/\_____\ \__/".~\_\ \_____\ \_____\ \_\  \ \_____\ \_\ \_\ 
-  \/_____/\/_/   \/_/\/_____/\/_____/\/_/   \/_____/\/_/ /_/ 
-  
-  The umanaged resource detector tool!
-  -----------------------------------------------------------
-                        Run Report
-  -----------------------------------------------------------
-  1236 resources found created by Cloudformation!
-  34 resources not managed by Cloudformation!
-  2 Cloudformation managed resources not found!
-  4 resources not verifed (not yet supported)!
-  
-  Unmanaged Resources:
-    AWS::IAM::Role
-      1243-myrolecreatedinconsole
-      hand-createdrole
-    AWS::EC2::Instance
-      i-23054dfi514fdewqi2541
-      i-239mvfewnmiwemf273492
-   ...
-   ...
+cfn-sweeper --region us-east-1 --filter-types AWS::S3::Bucket AWS::EC2::Instance AWS::EFS::FileSystem
+AWS::EC2::Instance:
+  managed:
+  - i-04738a0664ab77af4
+  unmanaged: []
+AWS::S3::Bucket
+  managed: []
+  unmanaged:
+  - my-leftover-bucket
+AWS::EFS::FileSystem
+  managed:
+  - fs-123456
+  unmanaged:
+  - fs-789101
 ```
 ### Available arguments
 
@@ -63,7 +47,7 @@ Allows you to exclude particular AWS Resource types based on the Cloudformation 
 Valid values: any Cloudformation resource type that is supported by the tool today (see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html for reference). Multiple values can be supplied
 
 
-`--filter-tag-keys`
+`--filter-tag-keys` [WIP]
 
 Allows you to exclude particular AWS Resources based on the presence of a particular tag key on the resource. This will only be applied to AWS Resources that support tagging.
 Valid values: any string that is a valid tag - multiple values can be supplied
@@ -84,10 +68,4 @@ Valid values: any string that is a valid tag - multiple values can be supplied
 
 ### Using as a Python Module
 
-```python
-import cfn_sweeper
-
-cfn_managed_resources = cfn_sweeper.get_managed_resources()
-unmanaged_resources = cfn_sweeper.get_unmanaged_resources(cfn_managed_resources)
-
-```
+TBD
