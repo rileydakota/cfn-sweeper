@@ -80,6 +80,8 @@ Valid values: any string that is a valid tag - multiple values can be supplied
 
 `AWS::KMS::Key`
 
+`AWS::EFS::FileSystem`
+
 ### Using as a Python Module
 
 ```python
