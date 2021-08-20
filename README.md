@@ -54,7 +54,7 @@ Valid values: any string that is a valid tag - multiple values can be supplied
 
 ### Supported Cloudformation Types
 
-`AWS::IAM::Role`
+`AWS::IAM::Role` - (Global resoures are experimental at this time, use with caution)
 
 `AWS::EC2::Instance`
 
@@ -67,5 +67,9 @@ Valid values: any string that is a valid tag - multiple values can be supplied
 `AWS::EFS::FileSystem`
 
 ### Using as a Python Module
+
+TBD
+
+### FAQ
 
 TBD
