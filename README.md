@@ -5,6 +5,8 @@ Wanting to understand how many resources in your AWS Account are managed by Clou
 
 ## Installation
 
+> :warning: **At least Python3.8 is required!
+
 Download the package from PyPI:
 ```pip install cfn-sweeper```
 
