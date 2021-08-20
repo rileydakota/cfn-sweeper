@@ -8,4 +8,9 @@ class resource(base_resource):
 
     def gather(self, region):
         results = []
+        client = boto3.client('lambda', region_name=region)
+        function_paginator = client.get_paginator('list_functions')
+        for response in function_paginator.paginate():
+            response_function_names = [r.get('FunctionName') for r in response['Functions']]
+            results.extend(response_function_names)
         return results
