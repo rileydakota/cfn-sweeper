@@ -2,6 +2,8 @@
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/rileydakota/cfn-sweeper.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rileydakota/cfn-sweeper/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/rileydakota/cfn-sweeper.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rileydakota/cfn-sweeper/context:python)
 
 
 
