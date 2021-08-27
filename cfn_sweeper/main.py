@@ -3,6 +3,9 @@ from cfn_sweeper.base.cfn_resources import load_cfn_resources, get_all_cfn_resou
 from cfn_sweeper.base.runner import PluginManager
 from cfn_sweeper.base.output import ScanReport
 from cfn_sweeper.validation import ValidateRegion,Validateoutput,Validatefilter
+from sys import exit
+
+
 
     
 
@@ -12,8 +15,7 @@ def main():
     parser.add_argument('--region',
                         help='Enter a region like us-east-2.',
                         dest="region",
-                        action=ValidateRegion,
-                        required=True)
+                        action=ValidateRegion)
     parser.add_argument('--output',
                         help='pretty, json, yaml, stdout',
                         dest="output",
@@ -25,11 +27,14 @@ def main():
                         help='eg: AWS::IAM::Role or AWS::EC2::Instance.',
                         nargs='+',
                         dest="types",
-                        action=Validatefilter,
-                        required=True)
+                        action=Validatefilter)
     parser.add_argument('--tag_keys',
                         help='Allows you to exclude particular AWS Resources based on the presence of a particular tag key on the resource. This will only be applied to AWS Resources that support tagging. Valid values: any string that is a valid tag - multiple values can be supplied.',
                         dest="tags")
+    parser.add_argument('--supported',
+                        help='Gives all current supported resource types for CFN Sweeper.',
+                        dest="supported",
+                        action='store_true')
 
     #TODO: add argument validation - including regex for patterns
     args = parser.parse_args()
@@ -40,15 +45,20 @@ def main():
     output = args.output
     cfn_resources = load_cfn_resources(region)
     runner = PluginManager()
+    if args.supported: 
+        print('The following resource types are supported:')
+        for key in runner.modules.keys():
+            print("  {}".format(key))
+        exit()
     
     #TODO: abstract result into its own class - so we can easily output to different formats
     report = ScanReport() 
     for resource_type in types:
         resources_in_cloudformation = get_all_cfn_resources_by_type(cfn_resources, resource_type)
         try:
-            resources_in_account = runner.gather_resource(region=region, resource_name=resource_type)
+            resources_in_account = runner.gather_resource(region=region, resource_name=resource_type) 
         except NotImplementedError:
-            print('Sorry - {} isn''t supported just yet!'.format(
+            print('Sorry - {} isn''t supported just yet! Use --supported to see a list of supported types'.format(
                 resource_type
             ))
             continue
