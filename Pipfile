@@ -19,6 +19,7 @@ autopep8 = "*"
 flake8 = "*"
 pytest-watch = "*"
 bandit = "*"
+jeepney = "*"
 
 [requires]
 python_version = "3.8"
