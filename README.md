@@ -1,5 +1,8 @@
 # cfn-sweeper - find all the unmanaged resources in your account!
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/ansicolortags.svg)](https://pypi.python.org/pypi/cfn-sweeper/)
+
+
 A CLI Tool to find resources in an AWS Account not actively managed by Cloudformation!
 
 Wanting to understand how many resources in your AWS Account are managed by Cloudformation? This is the tool for you!
