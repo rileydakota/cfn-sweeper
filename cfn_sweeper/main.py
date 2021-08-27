@@ -4,7 +4,7 @@ from cfn_sweeper.base.runner import PluginManager
 from cfn_sweeper.base.output import ScanReport
 from cfn_sweeper.validation import ValidateRegion,Validateoutput,Validatefilter
 from sys import exit
-import pprint
+
 
 
     
