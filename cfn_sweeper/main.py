@@ -44,6 +44,7 @@ def main():
     #TODO: abstract result into its own class - so we can easily output to different formats
     report = ScanReport() 
     for resource_type in types:
+        resource_type.lower()
         resources_in_cloudformation = get_all_cfn_resources_by_type(cfn_resources, resource_type)
         try:
             resources_in_account = runner.gather_resource(region=region, resource_name=resource_type)

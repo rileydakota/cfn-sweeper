@@ -56,7 +56,7 @@ class PluginManager:
             try:
                 loaded_module = import_module(module_path)
                 resource = loaded_module.resource()
-                self.modules[resource.resource_name] = resource.gather
+                self.modules[resource.resource_name.lower()] = resource.gather
 
             except ModuleNotFoundError as e:
                 print(e)

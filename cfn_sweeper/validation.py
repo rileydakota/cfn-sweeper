@@ -24,7 +24,7 @@ class Validateoutput(argparse.Action):
 class Validatefilter(argparse.Action):
     """Validate Filter Types"""
     def __call__(self, parser, namespace, values, option_string=None):
-        regex = re.compile('AWS::[0-z]*::[0-z]*', re.I)
+        regex = re.compile('(aws|AWS)::[0-z]*::[0-z]*', re.I)
         for value in values:
            match = regex.match(str(value))
         if match:
