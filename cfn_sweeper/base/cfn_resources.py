@@ -1,5 +1,6 @@
 import boto3
 from botocore.config import Config
+from collections import defaultdict
 
 cfn_config = Config(
     retries={
@@ -37,11 +38,11 @@ def load_cfn_resources(region: str) -> list:
             StackName=stack['StackName'])
         for page in resource_page_iterator:
             for resource in page['StackResourceSummaries']:
-                result.append(resource)
+                    result.append(resource)
+            resource.update({"StackName":stack['StackName']})
     return result
 
-
-def get_all_cfn_resources_by_type(resource_array: list, resource_type: str) -> list:
+def get_all_cfn_resources_by_type(resource_array: dict, resource_type: str) -> list:
     """
     Given a list of cloudformation stack resources, filters the resources by the specified type
 
@@ -77,3 +78,26 @@ def is_managed_by_cloudformation(physical_resource_id: str, resource_array: list
             return True
     else:
         return False
+
+
+ 
+def get_stacks(resource_array: dict) -> list:
+    """
+    Given a list of cloudformation stack resources, filters the resources by the specified type
+
+    Parameters:
+        resource_array (list): an Array of Cloudformation Stack Resources
+        resource_type (string): the Name of the Cloudformation Resource type to filter for - example: AWS::EC2::Instance
+
+    Returns:
+        An array of dict - containing the filtered Cloudformation resources
+    """
+    result = []
+    tree = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    for resource in resource_array:
+        res = {(key): (resource[key]) for key in resource.keys()
+                               & {'StackName','PhysicalResourceId'}}
+
+        if res.values():
+            result.append(res)
+    return result
